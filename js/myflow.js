@@ -56,7 +56,8 @@ $(document).ready(function () {
 
     $flowchart.flowchart({
         data: data,
-        multipleLinksOnInput: true,
+        // multipleLinksOnInput: true,
+        multipleLinksOnInput: false,
         multipleLinksOnOutput: true,
 
         onOperatorSelect: function (operatorId) {
