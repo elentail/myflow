@@ -31,21 +31,21 @@ $(document).ready(function () {
         }
     };
     */
-   $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-   $('.tree li.parent_li > span').on('click', function (e) {
-       var children = $(this).parent('li.parent_li').find(' > ul > li');
-       if (children.is(":visible")) {
-           children.hide('fast');
-           $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
-       } else {
-           children.show('fast');
-           $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
-       }
-       e.stopPropagation();
-   });
-    
+    $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+    $('.tree li.parent_li > span').on('click', function (e) {
+        var children = $(this).parent('li.parent_li').find(' > ul > li');
+        if (children.is(":visible")) {
+            children.hide('fast');
+            $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+        } else {
+            children.show('fast');
+            $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+        }
+        e.stopPropagation();
+    });
 
-   var data = {}
+
+    var data = {}
 
     // Apply the plugin on a standard, empty div...
     var $flowchart = $('#flowchartworkspace');
@@ -59,24 +59,61 @@ $(document).ready(function () {
         multipleLinksOnInput: true,
         multipleLinksOnOutput: true,
 
-        onOperatorSelect: function(operatorId) {
+        onOperatorSelect: function (operatorId) {
             $operatorProperties.show();
             $operatorTitle.val($flowchart.flowchart('getOperatorTitle', operatorId));
+
+            var operatorData = $flowchart.flowchart('getOperatorData', operatorId);
+            console.log(operatorData);
+
             return true;
-          },
-          onOperatorUnselect: function() {
+        },
+        onOperatorUnselect: function () {
             $operatorProperties.hide();
             return true;
-          },
+        },
     });
 
-    $operatorTitle.keyup(function() {
+    // Delete Key Event handler
+    /*
+    $(document).on('keyup', function(event) {
+        if(event.keyCode == 46){
+            $flowchart.flowchart('deleteSelected');
+        }
+    });
+    */
+    document.addEventListener("keyup", function (event) {
+        if (event.keyCode == 46) {
+            $flowchart.flowchart('deleteSelected');
+        }
+    });
+
+    function unloadHandler(e) {
+        // Cancel the event
+        e.preventDefault();
+        // Chrome requires returnValue to be set
+        e.returnValue = '';
+    }
+    window.addEventListener('beforeunload', unloadHandler);
+    /*
+    function forceNavigation(url) {
+        window.removeEventListener('beforeunload', unloadHandler);
+        window.location.href = url;
+    }
+    
+    document.getElementById('no-warning').addEventListener('click', function() {
+        forceNavigation('https://example.com');
+    });
+    */
+
+
+    $operatorTitle.keyup(function () {
         var selectedOperatorId = $flowchart.flowchart('getSelectedOperatorId');
         if (selectedOperatorId != null) {
             $flowchart.flowchart('setOperatorTitle', selectedOperatorId, $operatorTitle.val());
         }
-    });    
-    
+    });
+
     var $draggableOperators = $('.draggable_operator');
     function getOperatorData($element) {
         var nbInputs = parseInt($element.data('nb-inputs'), 10);
@@ -88,7 +125,8 @@ $(document).ready(function () {
             properties: {
                 title: $element.text(),
                 inputs: {},
-                outputs: {}
+                outputs: {},
+                params: {}
             }
         };
 
@@ -108,26 +146,26 @@ $(document).ready(function () {
     }
 
     var operatorId = 0;
-        
+
     $draggableOperators.draggable({
         cursor: "move",
         opacity: 0.7,
-        
-        helper: 'clone', 
+
+        helper: 'clone',
         appendTo: 'body',
         zIndex: 1000,
-        
-        helper: function(e) {
-          var $this = $(this);
-          var data = getOperatorData($this);
-          return $flowchart.flowchart('getOperatorElement', data);
+
+        helper: function (e) {
+            var $this = $(this);
+            var data = getOperatorData($this);
+            return $flowchart.flowchart('getOperatorElement', data);
         },
-        stop: function(e, ui) {
+        stop: function (e, ui) {
             var $this = $(this);
             var elOffset = ui.offset;
             var containerOffset = $container.offset();
             if (elOffset.left > containerOffset.left &&
-                elOffset.top > containerOffset.top && 
+                elOffset.top > containerOffset.top &&
                 elOffset.left < containerOffset.left + $container.width() &&
                 elOffset.top < containerOffset.top + $container.height()) {
 
@@ -139,14 +177,14 @@ $(document).ready(function () {
                 var positionRatio = $flowchart.flowchart('getPositionRatio');
                 relativeLeft /= positionRatio;
                 relativeTop /= positionRatio;
-                
+
                 var data = getOperatorData($this);
                 data.left = relativeLeft;
                 data.top = relativeTop;
-                
+
                 $flowchart.flowchart('addOperator', data);
             }
         }
-    });    
+    });
 
 });
