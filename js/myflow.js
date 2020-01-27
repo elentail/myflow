@@ -1,48 +1,73 @@
 $(document).ready(function () {
-    /*
-    var data = {
-        operators: {
-            operator: {
-                top: 20,
-                left: 20,
-                properties: {
-                    title: 'Operator',
-                    inputs: {
-                        input_1: {
-                            label: 'Input 1',
-                        },
-                        input_2: {
-                            label: 'Input 2',
-                        }
-                    },
-                    outputs: {
-                        output_1: {
-                            label: 'Output 1',
-                        },
-                        output_2: {
-                            label: 'Output 2',
-                        },
-                        output_3: {
-                            label: 'Output 3',
-                        }
-                    }
-                }
-            }
-        }
-    };
-    */
+
+    // ----  tree collapse  ---- 
     $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+    // collapse initialize
+    $('.tree li.parent_li > span').parent('li.parent_li').find(' > ul > li').hide()
     $('.tree li.parent_li > span').on('click', function (e) {
         var children = $(this).parent('li.parent_li').find(' > ul > li');
         if (children.is(":visible")) {
             children.hide('fast');
-            $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+            //$(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
         } else {
             children.show('fast');
-            $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+            //$(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
         }
         e.stopPropagation();
     });
+    
+
+
+    var operatorStruct = {
+        SOME1 : {
+            inputSize : 0,
+            outputSize : 1
+        },
+        SOME2 : {
+            inputSize : 0,
+            outputSize : 1
+        },
+        SOME3 : {
+            inputSize : 0,
+            outputSize : 1
+        },
+        SOME4 : {
+            inputSize : 0,
+            outputSize : 1
+        },
+        Resize : {
+            inputSize : 1,
+            outputSize : 1            
+        },
+        Padding : {
+            inputSize : 1,
+            outputSize : 1            
+        },
+        Crop : {
+            inputSize : 1,
+            outputSize : 1            
+        },  
+        Concate : {
+            inputSize : 2,
+            outputSize : 1            
+        },
+        CNN : {
+            inputSize : 1,
+            outputSize : 0
+        },
+        VGG : {
+            inputSize : 1,
+            outputSize : 0
+        },
+        DNN : {
+            inputSize : 1,
+            outputSize : 0
+        },
+        Boosting : {
+            inputSize : 1,
+            outputSize : 0
+        }
+    };
 
 
     var data = {}
@@ -54,6 +79,17 @@ $(document).ready(function () {
     var $operatorTitle = $('#operator_title');
     $operatorProperties.hide();
 
+    function Flow2Text() {
+        var data = $flowchart.flowchart('getData');
+        $('#flowchart_data').val(JSON.stringify(data, null, 2));
+    }
+    $('#get_data').click(Flow2Text);
+    function Text2Flow() {
+        var data = JSON.parse($('#flowchart_data').val());
+        $flowchart.flowchart('setData', data);
+    }
+    $('#set_data').click(Text2Flow);    
+
     $flowchart.flowchart({
         data: data,
         // multipleLinksOnInput: true,
@@ -62,11 +98,7 @@ $(document).ready(function () {
 
         onOperatorSelect: function (operatorId) {
             $operatorProperties.show();
-            $operatorTitle.val($flowchart.flowchart('getOperatorTitle', operatorId));
-
-            var operatorData = $flowchart.flowchart('getOperatorData', operatorId);
-            console.log(operatorData);
-
+            $operatorTitle.val($flowchart.flowchart('getOperatorTitle', operatorId));                 
             return true;
         },
         onOperatorUnselect: function () {
@@ -115,12 +147,12 @@ $(document).ready(function () {
         }
     });
 
-    var $draggableOperators = $('.draggable_operator');
+    var $draggableOperators = $("#treeMethod").find(".draggable_operator");
     function getOperatorData($element) {
-        var nbInputs = parseInt($element.data('nb-inputs'), 10);
-        var nbOutputs = parseInt($element.data('nb-outputs'), 10);
-        // var nbInputs = 1;
-        // var nbOutputs = 1;
+        // var nbInputs = parseInt($element.data('nb-inputs'), 10);
+        // var nbOutputs = parseInt($element.data('nb-outputs'), 10);
+        var nbInputs = operatorStruct[$element.text()]["inputSize"];
+        var nbOutputs = operatorStruct[$element.text()]["outputSize"];
 
         var data = {
             properties: {

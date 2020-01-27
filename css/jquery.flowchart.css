@@ -109,6 +109,9 @@
     border: 1px solid #CCCCCC;
     background: #FAFAFA;
     pointer-events: auto;
+    /* added */
+    border-top-right-radius: 14px;
+    border-top-left-radius: 14px;    
 }
 
 .flowchart-operator.hover {
@@ -127,12 +130,17 @@
     font-weight: bold;
     box-sizing: border-box;
     border-bottom: 1px solid #DDDDDD;
-    background: #F0F0F0;
+    /* background: #F0F0F0; */
+    background: #86a9ec;
     height: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: move;
+    /* added */
+    border-top-right-radius: 14px;
+    border-top-left-radius: 14px;
+    color: #191d25;
 }
 
 .flowchart-operator .flowchart-operator-inputs-outputs {

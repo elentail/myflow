@@ -1,126 +1,169 @@
 {
-    "operators": {
-        "0": {
-            "properties": {
-                "title": "1 in & 2 out",
-                "inputs": {
-                    "input_0": {
-                        "label": "Input 1"
-                    }
-                },
-                "outputs": {
-                    "output_0": {
-                        "label": "Output 1"
-                    },
-                    "output_1": {
-                        "label": "Output 2"
-                    }
-                }
-            },
-            "left": 330,
-            "top": 40
+  "operators": {
+    "0": {
+      "properties": {
+        "title": "SOME1",
+        "inputs": {},
+        "outputs": {
+          "output_0": {
+            "label": "Output 1"
+          }
         },
-        "1": {
-            "properties": {
-                "title": "2 in & 1 out",
-                "inputs": {
-                    "input_0": {
-                        "label": "Input 1"
-                    },
-                    "input_1": {
-                        "label": "Input 2"
-                    }
-                },
-                "outputs": {
-                    "output_0": {
-                        "label": "Output 1"
-                    }
-                }
-            },
-            "left": 540,
-            "top": 70
-        },
-        "2": {
-            "properties": {
-                "title": "output",
-                "inputs": {
-                    "input_0": {
-                        "label": "Input 1"
-                    }
-                },
-                "outputs": {}
-            },
-            "left": 600,
-            "top": 300
-        },
-        "3": {
-            "properties": {
-                "title": "1 input",
-                "inputs": {
-                    "input_0": {
-                        "label": "Input 1"
-                    }
-                },
-                "outputs": {}
-            },
-            "left": 270,
-            "top": 240
-        },
-        "operator1": {
-            "top": 110,
-            "left": 30,
-            "properties": {
-                "title": "inputs",
-                "inputs": {},
-                "outputs": {
-                    "output_1": {
-                        "label": "Output 1"
-                    }
-                }
-            }
-        }
+        "params": {}
+      },
+      "left": 40,
+      "top": 60
     },
-    "links": {
-        "0": {
-            "fromOperator": "operator1",
-            "fromConnector": "output_1",
-            "fromSubConnector": 0,
-            "toOperator": 0,
-            "toConnector": "input_0",
-            "toSubConnector": 0
+    "1": {
+      "properties": {
+        "title": "Resize",
+        "inputs": {
+          "input_0": {
+            "label": "Input 1"
+          }
         },
-        "1": {
-            "fromOperator": 0,
-            "fromConnector": "output_0",
-            "fromSubConnector": 0,
-            "toOperator": 1,
-            "toConnector": "input_0",
-            "toSubConnector": 0
+        "outputs": {
+          "output_0": {
+            "label": "Output 1"
+          }
         },
-        "2": {
-            "fromOperator": "operator1",
-            "fromConnector": "output_1",
-            "fromSubConnector": 0,
-            "toOperator": 1,
-            "toConnector": "input_1",
-            "toSubConnector": 0
-        },
-        "3": {
-            "fromOperator": 1,
-            "fromConnector": "output_0",
-            "fromSubConnector": 0,
-            "toOperator": 2,
-            "toConnector": "input_0",
-            "toSubConnector": 0
-        },
-        "4": {
-            "fromOperator": "operator1",
-            "fromConnector": "output_1",
-            "fromSubConnector": 0,
-            "toOperator": 3,
-            "toConnector": "input_0",
-            "toSubConnector": 0
-        }
+        "params": {}
+      },
+      "left": 260,
+      "top": 60
     },
-    "operatorTypes": {}
+    "2": {
+      "properties": {
+        "title": "Padding",
+        "inputs": {
+          "input_0": {
+            "label": "Input 1"
+          }
+        },
+        "outputs": {
+          "output_0": {
+            "label": "Output 1"
+          }
+        },
+        "params": {}
+      },
+      "left": 260,
+      "top": 160
+    },
+    "3": {
+      "properties": {
+        "title": "Concate",
+        "inputs": {
+          "input_0": {
+            "label": "Input 1"
+          },
+          "input_1": {
+            "label": "Input 2"
+          }
+        },
+        "outputs": {
+          "output_0": {
+            "label": "Output 1"
+          }
+        },
+        "params": {}
+      },
+      "left": 520,
+      "top": 60
+    },
+    "4": {
+      "properties": {
+        "title": "DNN",
+        "inputs": {
+          "input_0": {
+            "label": "Input 1"
+          }
+        },
+        "outputs": {},
+        "params": {}
+      },
+      "left": 940,
+      "top": 180
+    },
+    "5": {
+      "properties": {
+        "title": "Concate",
+        "inputs": {
+          "input_0": {
+            "label": "Input 1"
+          },
+          "input_1": {
+            "label": "Input 2"
+          }
+        },
+        "outputs": {
+          "output_0": {
+            "label": "Output 1"
+          }
+        },
+        "params": {}
+      },
+      "left": 740,
+      "top": 160
+    }
+  },
+  "links": {
+    "0": {
+      "fromOperator": 0,
+      "fromConnector": "output_0",
+      "fromSubConnector": 0,
+      "toOperator": 1,
+      "toConnector": "input_0",
+      "toSubConnector": 0
+    },
+    "1": {
+      "fromOperator": 0,
+      "fromConnector": "output_0",
+      "fromSubConnector": 0,
+      "toOperator": 2,
+      "toConnector": "input_0",
+      "toSubConnector": 0
+    },
+    "2": {
+      "fromOperator": 1,
+      "fromConnector": "output_0",
+      "fromSubConnector": 0,
+      "toOperator": 3,
+      "toConnector": "input_0",
+      "toSubConnector": 0
+    },
+    "3": {
+      "fromOperator": 2,
+      "fromConnector": "output_0",
+      "fromSubConnector": 0,
+      "toOperator": 3,
+      "toConnector": "input_1",
+      "toSubConnector": 0
+    },
+    "4": {
+      "fromOperator": 2,
+      "fromConnector": "output_0",
+      "fromSubConnector": 0,
+      "toOperator": 5,
+      "toConnector": "input_1",
+      "toSubConnector": 0
+    },
+    "5": {
+      "fromOperator": 3,
+      "fromConnector": "output_0",
+      "fromSubConnector": 0,
+      "toOperator": 5,
+      "toConnector": "input_0",
+      "toSubConnector": 0
+    },
+    "6": {
+      "fromOperator": 5,
+      "fromConnector": "output_0",
+      "fromSubConnector": 0,
+      "toOperator": 4,
+      "toConnector": "input_0",
+      "toSubConnector": 0
+    }
+  },
+  "operatorTypes": {}
 }

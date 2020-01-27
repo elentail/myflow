@@ -63,9 +63,14 @@
         <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
+            <div class="collapse-item">THK/OCD</div>
+            <div class="collapse-item">OES</div>
+            <div class="collapse-item">MANUAL</div>            
+            <!--
             <div class="collapse-item draggable_operator" data-nb-inputs="0" data-nb-outputs="1">THK/OCD</div>
             <div class="collapse-item draggable_operator" data-nb-inputs="0" data-nb-outputs="1">OES</div>
             <div class="collapse-item draggable_operator" data-nb-inputs="0" data-nb-outputs="1">MANUAL</div>
+             -->
           </div>
         </div>
       </li>
@@ -148,13 +153,11 @@
                   </div>
                 </div>
 
-                <!--
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <div class="btn btn-secondary draggable_operator">Left</div>
-                  <div class="btn btn-secondary draggable_operator">Mid</div>
-                  <div class="btn btn-secondary draggable_operator">Right</div>
+                  <button type="button" id="get_data" class="btn btn-secondary">getData</button>
+                  <button type="button" class="btn btn-secondary">Middle</button>
+                  <button type="button" class="btn btn-secondary">Right</button>
                 </div>
-                -->
 
               </div>
 
@@ -281,6 +284,60 @@
                 </ul>
             </div>
 
+
+            <div class="tree" id="treeMethod">
+              <ul>
+                  <li>
+                      <span><img src="icons/table.svg" alt="" width="16" height="16">Data Source</span>
+                      <ul>
+                          <li>
+                            <span class="badge badge-success">Spectrum</span>
+                              <ul>
+                                  <li>
+                                    <span class="draggable_operator">SOME1</span>
+                                  </li>
+                                  <li>
+                                    <span class="draggable_operator">SOME2</span>
+                                  </li>                                  
+                              </ul>
+                          </li>
+                          <li>
+                            <span class="badge badge-success">Image</span>
+                              <ul>
+                                  <li>
+                                    <span class="draggable_operator">SOME3</span>
+                                  </li>
+                                  <li>
+                                    <span class="draggable_operator">SOME4</span>
+                                  </li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </li>
+                  <li>
+                      <span>Processing</span>
+                      <ul>
+                          <li>
+                            <span class="badge badge-success">Image</span>
+                              <ul>
+                                  <li>
+                                    <span class="draggable_operator">Resize</span>
+                                  </li>
+                                  <li>
+                                    <span class="draggable_operator">Padding</span>
+                                  </li>
+                                  <li>
+                                    <span class="draggable_operator">Crop</span>
+                                  </li>
+                                  <li>
+                                    <span class="draggable_operator">Concate</span>
+                                  </li>  
+                              </ul>
+                          </li>
+                  </ul>
+                  </li>
+              </ul>
+          </div>            
               
             </div>
 
@@ -304,6 +361,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Params</h6>
                 </div>
                 <div class="card-body">
+                    <textarea id="flowchart_data"></textarea>
                 </div>
               </div>  
 
