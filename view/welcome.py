@@ -19,10 +19,17 @@ def add_history():
     db.session.commit()
     return json.dumps({'success' : True})
 
+
+@welcome_blueprint.route('/layout')
+def layout():
+    return render_template('layout.html')
+
+
 @welcome_blueprint.route('/upload')
 def upload_file():
    return render_template('upload.html')
 	
+    
 @welcome_blueprint.route('/uploader', methods = ['GET', 'POST'])
 def upload_service():
    if request.method == 'POST':
