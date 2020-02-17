@@ -1,0 +1,4 @@
+[
+  {"title": "Subnode 1"},
+  {"title": "Subnode 2", "lazy": true}
+]
