@@ -1,0 +1,64 @@
+{
+    "SOME1" : {
+        "inputSize" : 0,
+        "outputSize" : 1,
+        "params":[
+            {"label": "path", "type": "input", "value": "/tmp"}
+        ]
+    },
+    "SOME2" : {
+        "inputSize" : 0,
+        "outputSize" : 1,
+        "params": []
+    },
+    "SOME3" : {
+        "inputSize" : 0,
+        "outputSize" : 1,
+        "params": []
+    },
+    "SOME4" : {
+        "inputSize" : 0,
+        "outputSize" : 1,
+        "params": []
+    },
+    "Resize" : {
+        "inputSize" : 1,
+        "outputSize" : 1,
+        "params": []
+    },
+    "Padding" : {
+        "inputSize" : 1,
+        "outputSize" : 1,
+        "params": []
+    },
+    "Crop" : {
+        "inputSize" : 1,
+        "outputSize" : 1,
+        "params": []
+    },  
+    "Concate" : {
+        "inputSize" : 2,
+        "outputSize" : 1,
+        "params": []
+    },
+    "CNN" : {
+        "inputSize" : 1,
+        "outputSize" : 0,
+        "params": []
+    },
+    "VGG" : {
+        "inputSize" : 1,
+        "outputSize" : 0,
+        "params": []
+    },
+    "DNN" : {
+        "inputSize" : 1,
+        "outputSize" : 0,
+        "params": []
+    },
+    "Boosting" : {
+        "inputSize" : 1,
+        "outputSize" : 0,
+        "params": []
+    }
+}

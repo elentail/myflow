@@ -8,7 +8,12 @@ $(function(){
 	    { title: "Folder 2", expanded: true, children: [
 	      { title: "Subnode 2.1"},
 	      { title: "Subnode 2.2"},
-	      { title: "Subnode 2.3"}
+		  { title: "Subnode 2.3"},
+		  { title: "Subnode 2.4"},
+		  { title: "Subnode 2.5"},
+		  { title: "Subnode 2.6"},
+		  { title: "Subnode 2.7"},
+		  { title: "Subnode 2.8"}
 	      ]},
 	    { title: "Lazy Folder", lazy: true }
     ];

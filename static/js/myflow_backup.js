@@ -1,15 +1,83 @@
 $(document).ready(function () {
 
-    var operatorStruct = {}
-    $.getJSON( "/static/js/functions.json", function( json ) {
-        operatorStruct = json;
+    // ----  tree collapse  ---- 
+    $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+    // collapse initialize
+    $('.tree li.parent_li > span').parent('li.parent_li').find(' > ul > li').hide()
+    $('.tree li.parent_li > span').on('click', function (e) {
+        var children = $(this).parent('li.parent_li').find(' > ul > li');
+        if (children.is(":visible")) {
+            children.hide('fast');
+            //$(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+        } else {
+            children.show('fast');
+            //$(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+        }
+        e.stopPropagation();
     });
+    
+
+
+    var operatorStruct = {
+        SOME1 : {
+            inputSize : 0,
+            outputSize : 1
+        },
+        SOME2 : {
+            inputSize : 0,
+            outputSize : 1
+        },
+        SOME3 : {
+            inputSize : 0,
+            outputSize : 1
+        },
+        SOME4 : {
+            inputSize : 0,
+            outputSize : 1
+        },
+        Resize : {
+            inputSize : 1,
+            outputSize : 1            
+        },
+        Padding : {
+            inputSize : 1,
+            outputSize : 1            
+        },
+        Crop : {
+            inputSize : 1,
+            outputSize : 1            
+        },  
+        Concate : {
+            inputSize : 2,
+            outputSize : 1            
+        },
+        CNN : {
+            inputSize : 1,
+            outputSize : 0
+        },
+        VGG : {
+            inputSize : 1,
+            outputSize : 0
+        },
+        DNN : {
+            inputSize : 1,
+            outputSize : 0
+        },
+        Boosting : {
+            inputSize : 1,
+            outputSize : 0
+        }
+    };
+
+
+    var data = {}
 
     // Apply the plugin on a standard, empty div...
     var $flowchart = $('#flowchartworkspace');
     var $container = $flowchart.parent();
     var $operatorProperties = $('#operator_properties');
     var $operatorTitle = $('#operator_title');
+    $operatorProperties.hide();
 
     function Flow2Text() {
         var data = $flowchart.flowchart('getData');
@@ -23,21 +91,18 @@ $(document).ready(function () {
     $('#set_data').click(Text2Flow);    
 
     $flowchart.flowchart({
-        data: {},
+        data: data,
         // multipleLinksOnInput: true,
         multipleLinksOnInput: false,
         multipleLinksOnOutput: true,
 
         onOperatorSelect: function (operatorId) {
-            $operatorTitle.val($flowchart.flowchart('getOperatorTitle', operatorId));
-            var opertorData = $flowchart.flowchart('getOperatorData', operatorId);
-            for(var i=0; i <opertorData.properties.params.length;++i){
-                var myElement = document.createElement(opertorData.properties.params[i]['type']);
-                $operatorProperties.append(myElement);
-            }
+            $operatorProperties.show();
+            $operatorTitle.val($flowchart.flowchart('getOperatorTitle', operatorId));                 
             return true;
         },
         onOperatorUnselect: function () {
+            $operatorProperties.hide();
             return true;
         },
     });
@@ -57,10 +122,23 @@ $(document).ready(function () {
     });
 
     function unloadHandler(e) {
+        // Cancel the event
         e.preventDefault();
+        // Chrome requires returnValue to be set
         e.returnValue = '';
     }
     window.addEventListener('beforeunload', unloadHandler);
+    /*
+    function forceNavigation(url) {
+        window.removeEventListener('beforeunload', unloadHandler);
+        window.location.href = url;
+    }
+    
+    document.getElementById('no-warning').addEventListener('click', function() {
+        forceNavigation('https://example.com');
+    });
+    */
+
 
     $operatorTitle.keyup(function () {
         var selectedOperatorId = $flowchart.flowchart('getSelectedOperatorId');
@@ -69,87 +147,10 @@ $(document).ready(function () {
         }
     });
 
-    var sampleSource = [
-        {
-            "title": "Source",
-            "folder": true,
-            "expanded": true,
-            "children": [
-                {
-                    "title": "image",
-                    "folder": true,
-                    "expanded": true,
-                    "children": [
-                        {
-                            "title": "SOME1"
-                        },
-                        {
-                            "title": "SOME2"
-                        }
-                    ]
-                },
-                {
-                    "title": "spectrum",
-                    "folder": true,
-                    "expanded": true,
-                    "children": [
-                        {
-                            "title": "SOME3"
-                        },
-                        {
-                            "title": "SOME4"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "processing",
-            "folder": true,
-            "expanded": true,
-            "children": [
-                {
-                    "title": "image",
-                    "folder": true,
-                    "expanded": true,
-                    "children": [
-                        {
-                            "title": "Resize"
-                        },
-                        {
-                            "title": "Padding"
-                        },
-                        {
-                            "title": "Crop"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-
-	$("#tree_list").fancytree({
-//	  extensions: ["childcounter"],
-//    checkbox: true,
-	  debugLevel: 0,
-      source: sampleSource,
-    //   source:{
-    //       url : 'http://' + window.location.host + '/static/js/functions.json'
-    //   },
-	  activate: function(event, data) {
-        // console.log(data);
-		$("#tree_status").text("Activate " + data.node.title);
-	  }
-	});
-    $(".fancytree-container").addClass("fancytree-connectors");
-
-    
-    // draggable 
-    var $draggableOperators = $("#tree_list .fancytree-exp-n,.fancytree-exp-nl");
-    
+    var $draggableOperators = $("#treeMethod").find(".draggable_operator");
     function getOperatorData($element) {
-        // console.log($element);
-        
+        // var nbInputs = parseInt($element.data('nb-inputs'), 10);
+        // var nbOutputs = parseInt($element.data('nb-outputs'), 10);
         var nbInputs = operatorStruct[$element.text()]["inputSize"];
         var nbOutputs = operatorStruct[$element.text()]["outputSize"];
 
@@ -158,7 +159,7 @@ $(document).ready(function () {
                 title: $element.text(),
                 inputs: {},
                 outputs: {},
-                params: operatorStruct[$element.text()]["params"]
+                params: {}
             }
         };
 
@@ -218,6 +219,5 @@ $(document).ready(function () {
             }
         }
     });
-
 
 });
