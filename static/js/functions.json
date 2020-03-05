@@ -3,7 +3,9 @@
         "inputSize" : 0,
         "outputSize" : 1,
         "params":[
-            {"label": "path", "type": "input", "value": "/tmp"}
+            {"label": "path", "type": "input", "value": "/tmp"},
+            {"label": "ref1", "type": "input", "value": "/tmp"},
+            {"label": "ref2", "type": "input", "value": "/tmp"}
         ]
     },
     "SOME2" : {

@@ -219,5 +219,10 @@ $(document).ready(function () {
         }
     });
 
+    $('#datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        keyboardNavigation: false,
+        forceParse: false
+    });
 
 });
